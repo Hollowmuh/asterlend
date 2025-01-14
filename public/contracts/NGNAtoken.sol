@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Votes.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/security/Pausable.sol";
+import "@openzeppelin/contracts/utils/Pausable.sol";
 import "@openzeppelin/contracts/utils/math/SafeCast.sol";
 
 /**
@@ -61,14 +61,14 @@ contract NGNIToken is ERC20, ERC20Permit, ERC20Votes, Ownable, Pausable {
             maxSupply: uint128(_maxSupply),
             inflationRate: 500, // 5% annual inflation
             lastInflationTime: uint32(block.timestamp),
-            inflationInterval: 1 days
+            inflationInterval: 90 days //every three months
         });
 
         rewardConfig = RewardConfig({
             rewardPool: 0,
-            rewardRate: 1e18, // 1 token per second
+            rewardRate: 1e20, // 0.01 token per second
             lastUpdateTime: uint32(block.timestamp),
-            lockupPeriod: 30 days
+            lockupPeriod: 30 days //minimum 1 month
         });
 
         _mint(msg.sender, initialSupply);
